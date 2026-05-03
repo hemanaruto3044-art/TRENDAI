@@ -1,0 +1,22 @@
+{
+  "entities": {
+    "submission": {
+      "title": "Pine Script Submission",
+      "description": "Original raw Pine Script submitted by a guest user.",
+      "type": "object",
+      "properties": {
+        "originalCode": { "type": "string" },
+        "guestId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "userEmail": { "type": "string" }
+      },
+      "required": ["originalCode", "guestId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/submissions/{submissionId}": {
+      "schema": "submission",
+      "description": "Collection of all submitted Pine Scripts."
+    }
+  }
+}

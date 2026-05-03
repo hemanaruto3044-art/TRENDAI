@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'hemanaruto3044@gmail.com'
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function isValidSubmission(data) {
+      return data.keys().hasAll(['originalCode', 'guestId', 'createdAt']) &&
+             data.keys().size() <= 5 &&
+             data.originalCode is string &&
+             data.originalCode.size() <= 500000 &&
+             data.guestId is string &&
+             data.guestId.size() <= 128;
+    }
+
+    match /submissions/{submissionId} {
+      allow create: if true; // Allow guests to submit
+      allow read: if isAdmin(); // Only admin can see list and individual submissions
+    }
+  }
+}

@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@300;400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-[#050505] text-[#e5e7eb] font-mono overflow-hidden h-screen w-screen;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/3 backdrop-blur-xl border border-white/10;
+  }
+  
+  .glow-text {
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  }
+
+  .emerald-gradient {
+    background: radial-gradient(circle at 50% 50%, #064e3b 0%, #050505 100%);
+  }
+
+  .scanline {
+    background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, .1) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+  }
+}
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-emerald-500/10 rounded-full;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-emerald-500/30;
+  }
+}
